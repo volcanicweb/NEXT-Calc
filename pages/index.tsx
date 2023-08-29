@@ -87,9 +87,122 @@ const Home: FC = () => {
       setday3Value(day);
     }
     else if(value == "sub"){
+
+      if(day1Value < day2Value)
+      {
+          var temp = day1Value;
+          setday1Value(day2Value)
+          setday2Value(temp)
+
+          temp = hour1Value;
+          sethour1Value(hour2Value)
+          sethour2Value(temp)
+
+          temp = min1Value;
+          setmin1Value(min2Value)
+          setmin2Value(temp)
+
+          temp = sec1Value;
+          setsec1Value(sec2Value)
+          setsec2Value(temp)
+      }
+
+      else if(day1Value >= day2Value && hour1Value < hour2Value)
+      {
+        var temp = day1Value;
+        setday1Value(day2Value)
+        setday2Value(temp)
+
+        temp = hour1Value;
+        sethour1Value(hour2Value)
+        sethour2Value(temp)
+
+        temp = min1Value;
+        setmin1Value(min2Value)
+        setmin2Value(temp)
+
+        temp = sec1Value;
+        setsec1Value(sec2Value)
+        setsec2Value(temp)
+      }
+      else if( day1Value >= day2Value && hour1Value >= hour2Value && min1Value < min2Value)
+      {
+        var temp = day1Value;
+        setday1Value(day2Value)
+        setday2Value(temp)
+
+        temp = hour1Value;
+        sethour1Value(hour2Value)
+        sethour2Value(temp)
+
+        temp = min1Value;
+        setmin1Value(min2Value)
+        setmin2Value(temp)
+
+        temp = sec1Value;
+        setsec1Value(sec2Value)
+        setsec2Value(temp)
+      }
+
+      else if( day1Value >= day2Value && hour1Value >= hour2Value && min1Value >= min2Value && sec1Value < sec2Value )
+      {
+        var temp = day1Value;
+        setday1Value(day2Value)
+        setday2Value(temp)
+
+        temp = hour1Value;
+        sethour1Value(hour2Value)
+        sethour2Value(temp)
+
+        temp = min1Value;
+        setmin1Value(min2Value)
+        setmin2Value(temp)
+
+        temp = sec1Value;
+        setsec1Value(sec2Value)
+        setsec2Value(temp)
+      }
+
+      let sec = Number(sec1Value)-Number(sec2Value);
+      let carry = 0
+      if(sec<0) 
+      {
+        sec = 60 + sec;
+        carry = 1;
+      }
+      setsec3Value(sec%60);
+      let min = Number(min1Value)-Number(min2Value)-carry;
+      carry = 0;
+      if(min<0) 
+      {
+        min = 60 + min;
+        carry = 1;
+      }
+      setmin3Value(min%60);
+      let hour =  Number(hour1Value) - Number(hour2Value)-carry;
+      carry = 0;
+      if(hour<0) 
+      {
+        hour = hour + 24;
+        carry = 1;
+      }
+      sethour3Value(hour%24);
+      let day = Number(day1Value) - Number(day2Value)-carry;
+      if(day<0) 
+      {
+        day = day*-1;
+        carry = 1;
+      }
+      setday3Value(day);
+
+
       
+
     }
   };
+
+  
+
   return (
     <Grid h={'100%'} m={0}>
       <Grid.Col
@@ -103,6 +216,10 @@ const Home: FC = () => {
         sm={6}
         >
         <Box py={24} px={'16px'} w={{ base: '100%' }} >
+        <Space h="xl" />
+        <Space h="xl" />
+        <Space h="xl" />
+        <Space h="xl" />
 
         <form onSubmit={handleSubmit}>
 
@@ -212,7 +329,8 @@ const Home: FC = () => {
             >
 
           <NumberInput
-            
+            min={0}
+
             name = "day2"
             placeholder=""
             label=""
@@ -222,7 +340,8 @@ const Home: FC = () => {
             />
 
            <NumberInput
-
+            min={0}
+            max={23}
             name = "hour2"
             placeholder=""
             label=""
@@ -233,7 +352,8 @@ const Home: FC = () => {
             />
 
            <NumberInput
-            
+            min={0}
+            max={59}
             name = "minute2"
             placeholder=""
             label=""
@@ -244,7 +364,8 @@ const Home: FC = () => {
             />
 
            <NumberInput
-          
+            min={0}
+            max={59}
             name = "second2"
             placeholder=""
             label=""
@@ -320,6 +441,7 @@ const Home: FC = () => {
 
           </Flex>
           </Center>
+          <Space h="xl" />
 
           <Center>
 
@@ -343,23 +465,37 @@ const Home: FC = () => {
       sm={6}>
         <Box p="20px">
           <Flex mt="112px" direction="column" justify="center" align="center">
-            <CopyButton value="Text to be copied">
+            
+
+            <CopyButton value={day3Value.toString() + " " + hour3Value.toString() + " " + min3Value.toString() + " " + sec3Value.toString()}>
               {({ copied, copy }) => (
                 <Button
-                  mb={50}
-                  size="sm"
-                  px={8}
-                  variant="default"
-                  onClick={copy}
+                mb={50}
+                size="sm"
+                px={8}
+                variant="default"
+                onClick={copy}
                 >
                   <Text>{copied ? 'Copied' : 'Copy'}</Text>
                 </Button>
               )}
             </CopyButton>
-            <Text size="14px" color='#E6FCF5' >
+        <Space h="xl" />
+        <Grid
+             sx={(theme) => ({
+              boxShadow: theme.shadows.md,
+              backgroundColor: theme.colors.dark[7],
+              gutterXl : "xl",
+              borderColor: '#D9D9D9',
+              
+            })}
+            >
+                <Textarea>
+                  khdgcshbld
+                </Textarea>
 
-              Right Side Content
-            </Text>
+              </Grid>
+           
           </Flex>
         </Box>
       </Grid.Col>

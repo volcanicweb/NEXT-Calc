@@ -8,7 +8,6 @@ export default function App(props: AppProps) {
   return (
     <MantineProvider withGlobalStyles withNormalizeCSS theme={{colorScheme : 'dark'}}>
       <Component {...pageProps} />
-      
     </MantineProvider>
   );
 }
