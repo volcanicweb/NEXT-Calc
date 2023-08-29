@@ -17,6 +17,7 @@ import {
   Radio ,
   CopyButton,
   Center,
+  rem,
 } from '@mantine/core';
 
 
@@ -446,7 +447,19 @@ const Home: FC = () => {
           <Center>
 
             <Button color="violet" type='submit'
-           
+               
+                styles={(theme) => ({
+                  root: {
+                  
+                    '&:not([data-disabled])': theme.fn.hover({
+                      backgroundColor: theme.fn.darken('violet', 0.5),
+                    }),
+                  },
+        
+                  leftIcon: {
+                    marginRight: theme.spacing.md,
+                  },
+                })}
             >
                 Calculate
             </Button>
@@ -481,7 +494,7 @@ const Home: FC = () => {
               )}
             </CopyButton>
         <Space h="xl" />
-        <Grid
+        {/* <Grid
              sx={(theme) => ({
               boxShadow: theme.shadows.md,
               backgroundColor: theme.colors.dark[7],
@@ -494,7 +507,7 @@ const Home: FC = () => {
                   khdgcshbld
                 </Textarea>
 
-              </Grid>
+              </Grid> */}
            
           </Flex>
         </Box>
