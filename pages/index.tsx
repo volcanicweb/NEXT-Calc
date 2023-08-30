@@ -1,6 +1,9 @@
-import { FC, ReactHTMLElement } from 'react';
+
+import { FC, ReactHTMLElement  } from 'react';
 import React , { ChangeEvent,useState ,useRef } from 'react';
 import { useInputState } from '@mantine/hooks';
+import { CopyButton, ActionIcon, Tooltip , Card } from '@mantine/core';
+import { IconCopy, IconCheck } from '@tabler/icons-react';
 import {
   Select,
   TextInput,
@@ -15,7 +18,6 @@ import {
   Button,
   Group,
   Radio ,
-  CopyButton,
   Center,
   rem,
 } from '@mantine/core';
@@ -68,6 +70,10 @@ const Home: FC = () => {
 
 
   const [value, setValue] = useState('add');
+  let totalDays = 0.0;
+  let totalHours = 0.0;
+  let totalMins = 0.0;
+  let totalSecs = 0.0;
   
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
@@ -196,13 +202,13 @@ const Home: FC = () => {
       }
       setday3Value(day);
 
-
-      
-
     }
   };
 
-  
+      totalDays = (parseFloat(day3Value.toString())*24*60*60 + parseFloat(hour3Value.toString())*60*60 + parseFloat(min3Value.toString())*60 + parseFloat(sec3Value.toString()))/86400;
+      totalHours = (parseFloat(day3Value.toString())*24*60*60 + parseFloat(hour3Value.toString())*60*60 + parseFloat(min3Value.toString())*60 + parseFloat(sec3Value.toString()))/3600;
+      totalMins = (parseFloat(day3Value.toString())*24*60*60 + parseFloat(hour3Value.toString())*60*60 + parseFloat(min3Value.toString())*60 + parseFloat(sec3Value.toString()))/60;
+      totalSecs = (parseFloat(day3Value.toString())*24*60*60 + parseFloat(hour3Value.toString())*60*60 + parseFloat(min3Value.toString())*60 + parseFloat(sec3Value.toString()));
 
   return (
     <Grid h={'100%'} m={0}>
@@ -480,19 +486,78 @@ const Home: FC = () => {
           <Flex mt="112px" direction="column" justify="center" align="center">
             
 
-            <CopyButton value={day3Value.toString() + " " + hour3Value.toString() + " " + min3Value.toString() + " " + sec3Value.toString()}>
-              {({ copied, copy }) => (
-                <Button
-                mb={50}
-                size="sm"
-                px={8}
-                variant="default"
-                onClick={copy}
-                >
-                  <Text>{copied ? 'Copied' : 'Copy'}</Text>
-                </Button>
-              )}
-            </CopyButton>
+          <Card shadow="sm" padding="lg" radius="md" withBorder>
+      <Card.Section>
+        
+      </Card.Section>
+
+      <Group position="apart" mt="md" mb="xs">
+        <Text weight={500}>Answer : {day3Value.toString() + " days " + hour3Value.toString() + " hours " + min3Value.toString() + " minutes " + sec3Value.toString() + " seconds"}</Text>
+        <CopyButton value={day3Value.toString() + " " + hour3Value.toString() + " " + min3Value.toString() + " " + sec3Value.toString()} timeout={2000}>
+      {({ copied, copy }) => (
+        <Tooltip label={copied ? 'Copied' : 'Copy'} withArrow position="right">
+          <ActionIcon color={copied ? 'teal' : 'gray'} onClick={copy}>
+            {copied ? <IconCheck size="1rem" /> : <IconCopy size="1rem" />}
+          </ActionIcon>
+        </Tooltip>
+      )}
+    </CopyButton>
+      </Group>
+{/* ================================== */}
+<Group position="apart" mt="md" mb="xs">
+        <Text weight={500}>Total days : {totalDays.toString() }</Text>
+        <CopyButton value={day3Value.toString() + " " + hour3Value.toString() + " " + min3Value.toString() + " " + sec3Value.toString()} timeout={2000}>
+      {({ copied, copy }) => (
+        <Tooltip label={copied ? 'Copied' : 'Copy'} withArrow position="right">
+          <ActionIcon color={copied ? 'teal' : 'gray'} onClick={copy}>
+            {copied ? <IconCheck size="1rem" /> : <IconCopy size="1rem" />}
+          </ActionIcon>
+        </Tooltip>
+      )}
+    </CopyButton>
+      </Group>
+      {/* ============================ */}
+      <Group position="apart" mt="md" mb="xs">
+        <Text weight={500}>Total hours : {totalHours.toString()}</Text>
+        <CopyButton value={day3Value.toString() + " " + hour3Value.toString() + " " + min3Value.toString() + " " + sec3Value.toString()} timeout={2000}>
+      {({ copied, copy }) => (
+        <Tooltip label={copied ? 'Copied' : 'Copy'} withArrow position="right">
+          <ActionIcon color={copied ? 'teal' : 'gray'} onClick={copy}>
+            {copied ? <IconCheck size="1rem" /> : <IconCopy size="1rem" />}
+          </ActionIcon>
+        </Tooltip>
+      )}
+    </CopyButton>
+      </Group>
+{/* ======================== */}
+      <Group position="apart" mt="md" mb="xs">
+        <Text weight={500}>Total mins : {totalMins.toString()}</Text>
+        <CopyButton value={day3Value.toString() + " " + hour3Value.toString() + " " + min3Value.toString() + " " + sec3Value.toString()} timeout={2000}>
+      {({ copied, copy }) => (
+        <Tooltip label={copied ? 'Copied' : 'Copy'} withArrow position="right">
+          <ActionIcon color={copied ? 'teal' : 'gray'} onClick={copy}>
+            {copied ? <IconCheck size="1rem" /> : <IconCopy size="1rem" />}
+          </ActionIcon>
+        </Tooltip>
+      )}
+    </CopyButton>
+      </Group> 
+      {/* ========================== */}
+      <Group position="apart" mt="md" mb="xs">
+        <Text weight={500}>Total secs : {totalSecs.toString()}</Text>
+        <CopyButton value={day3Value.toString() + " " + hour3Value.toString() + " " + min3Value.toString() + " " + sec3Value.toString()} timeout={2000}>
+      {({ copied, copy }) => (
+        <Tooltip label={copied ? 'Copied' : 'Copy'} withArrow position="right">
+          <ActionIcon color={copied ? 'teal' : 'gray'} onClick={copy}>
+            {copied ? <IconCheck size="1rem" /> : <IconCopy size="1rem" />}
+          </ActionIcon>
+        </Tooltip>
+      )}
+    </CopyButton>
+      </Group> 
+    </Card>
+            
+          
         <Space h="xl" />
         {/* <Grid
              sx={(theme) => ({
