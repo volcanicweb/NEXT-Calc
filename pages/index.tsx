@@ -68,7 +68,7 @@ const Home: FC = () => {
   const [sec3Value , setsec3Value] = useState<number | ''>(0);
 
 
-  const [value, setValue] = useState('add');
+  const [value, setValue] = useState('+');
   let totalDays = 0.0;
   let totalHours = 0.0;
   let totalMins = 0.0;
@@ -78,7 +78,7 @@ const Home: FC = () => {
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     // 👇 prevent page refresh
     event.preventDefault();
-    if(value == "add"){
+    if(value == "+"){
       console.log("adding");
       let sec = Number(sec1Value)+Number(sec2Value);
       let carry =parseInt((sec/60).toString());
@@ -92,7 +92,7 @@ const Home: FC = () => {
       let day = carry + Number(day1Value) + Number(day2Value);
       setday3Value(day);
     }
-    else if(value == "sub"){
+    else if(value == "-"){
 
       let T1 =  parseFloat(day1Value.toString())*24*60*60 + parseFloat(hour1Value.toString())*60*60 + parseFloat(min1Value.toString())*60 + parseFloat(sec1Value.toString());
       let T2 =  parseFloat(day2Value.toString())*24*60*60 + parseFloat(hour2Value.toString())*60*60 + parseFloat(min2Value.toString())*60 + parseFloat(sec2Value.toString());
@@ -227,8 +227,8 @@ const Home: FC = () => {
               onChange={setValue}
               >
               <Group mt="xs">
-                <Radio value="add" name='calculate' label="Addition+" />
-                <Radio value="sub" name='calculate' label="Substraction-" />
+                <Radio value="+" name='calculate' label="Addition+" />
+                <Radio value="-" name='calculate' label="Substraction-" />
               </Group>
             </Radio.Group>
             </Center>
@@ -301,67 +301,8 @@ const Home: FC = () => {
 
           <Space h="md" />
 
-          <Center>
-
-          <Text fw={700}>=</Text>
-            </Center>
-
-          <Space h="md" />
-          <Center>
-        
-
-          <Flex
-            mih={50}
-
-            gap="md"
-            justify="flex-start"
-            align="flex-start"
-            direction="row"
-            wrap="wrap"
-            >
-          <NumberInput
-            
-            defaultValue={form.values.day3}
-            
-            onLoad={()=>{form.values.day3}}
-            placeholder=""
-            label=""
-            styles={{ input: { width: 90 , textAlign: 'center' } }}
-            hideControls
-            value={day3Value} onChange={setday3Value}
-            // {...form.getInputProps('day3')}
-            
-            />
-
-           <NumberInput
-           
-            placeholder=""
-            label=""
-            styles={{ input: { width: 90 , textAlign: 'center' } }}
-            hideControls
-            value={hour3Value} onChange={sethour3Value}
-            />
-
-           <NumberInput
-            
-            placeholder=""
-            label=""
-            styles={{ input: { width: 90 , textAlign: 'center' } }}
-            hideControls
-            value={min3Value} onChange={setmin3Value}
-            />
-
-           <NumberInput
-            
-            placeholder=""
-            label=""
-            styles={{ input: { width: 90 , textAlign: 'center' } }}
-            hideControls
-            value={sec3Value} onChange={setsec3Value}
-            />
-
-          </Flex>
-          </Center>
+          
+          
           <Space h="xl" />
 
           <Center>
@@ -404,71 +345,65 @@ const Home: FC = () => {
       <Card.Section>
         
       </Card.Section>
+      
+      <Group position="apart" mt="md" mb="xs">
+        <Text weight={500}>days : {day1Value.toString()} hours : {hour1Value.toString()} mins : {min1Value.toString()} secs : {sec1Value.toString()}</Text>
+       
+      </Group>
+       
+     
+      
+        <TextInput
+          rightSectionWidth={-50}
+        variant={"unstyled"}
+          value={value} onChange={(event) => setValue(event.currentTarget.value)}
+          size={'lg'}
+
+        >
+
+        </TextInput>
+   
+      <Group position="apart" mt="md" mb="xs">
+        <Text weight={500}>days : {day2Value.toString()} hours : {hour2Value.toString()} mins : {min2Value.toString()} secs : {sec2Value.toString()}</Text>
+       
+      </Group>
+      
+      <Text>
+        ___________________________________________________
+      </Text>
+      
+      
 
       <Group position="apart" mt="md" mb="xs">
-        <Text weight={500}>days : {day3Value.toString()} hours : {hour3Value.toString()} mins : {min3Value.toString()} secs : {sec3Value.toString()}</Text>
-        <CopyButton value={day3Value.toString() + " " + hour3Value.toString() + " " + min3Value.toString() + " " + sec3Value  .toString()} timeout={2000}>
-      {({ copied, copy }) => (
-        <Tooltip label={copied ? 'Copied' : 'Copy'} withArrow position="right">
-          <ActionIcon color={copied ? 'teal' : 'gray'} onClick={copy}>
-            {copied ? <IconCheck size="1rem" /> : <IconCopy size="1rem" />}
-          </ActionIcon>
-        </Tooltip>
-      )}
-    </CopyButton>
+        <Text weight={500}>= days : {day3Value.toString()} hours : {hour3Value.toString()} mins : {min3Value.toString()} secs : {sec3Value.toString()}</Text>
+       
       </Group>
 {/* ================================== */}
-<Group position="apart" mt="md" mb="xs">
-        <Text weight={500}>Total days : {totalDays.toString() }</Text>
-        <CopyButton value={totalDays.toString() } timeout={2000}>
-      {({ copied, copy }) => (
-        <Tooltip label={copied ? 'Copied' : 'Copy'} withArrow position="right">
-          <ActionIcon color={copied ? 'teal' : 'gray'} onClick={copy}>
-            {copied ? <IconCheck size="1rem" /> : <IconCopy size="1rem" />}
-          </ActionIcon>
-        </Tooltip>
-      )}
-    </CopyButton>
+      <Group position="apart" mt="md" mb="xs">
+        <Text weight={500}>= Total days : {totalDays.toString() }</Text>
+        
       </Group>
       {/* ============================ */}
       <Group position="apart" mt="md" mb="xs">
-        <Text weight={500}>Total hours : {totalHours.toString()}</Text>
-        <CopyButton value={totalHours.toString()} timeout={2000}>
-      {({ copied, copy }) => (
-        <Tooltip label={copied ? 'Copied' : 'Copy'} withArrow position="right">
-          <ActionIcon color={copied ? 'teal' : 'gray'} onClick={copy}>
-            {copied ? <IconCheck size="1rem" /> : <IconCopy size="1rem" />}
-          </ActionIcon>
-        </Tooltip>
-      )}
-    </CopyButton>
+        <Text weight={500}>= Total hours : {totalHours.toString()}</Text>
+       
       </Group>
 {/* ======================== */}
       <Group position="apart" mt="md" mb="xs">
-        <Text weight={500}>Total mins : {totalMins.toString()}</Text>
-        <CopyButton value={totalMins.toString()} timeout={2000}>
-      {({ copied, copy }) => (
-        <Tooltip label={copied ? 'Copied' : 'Copy'} withArrow position="right">
-          <ActionIcon color={copied ? 'teal' : 'gray'} onClick={copy}>
-            {copied ? <IconCheck size="1rem" /> : <IconCopy size="1rem" />}
-          </ActionIcon>
-        </Tooltip>
-      )}
-    </CopyButton>
+        <Text weight={500}>= Total mins : {totalMins.toString()}</Text>
+
       </Group> 
       {/* ========================== */}
       <Group position="apart" mt="md" mb="xs">
-        <Text weight={500}>Total secs : {totalSecs.toString()}</Text>
-        <CopyButton value={totalSecs.toString()} timeout={2000}>
-      {({ copied, copy }) => (
-        <Tooltip label={copied ? 'Copied' : 'Copy'} withArrow position="right">
-          <ActionIcon color={copied ? 'teal' : 'gray'} onClick={copy}>
-            {copied ? <IconCheck size="1rem" /> : <IconCopy size="1rem" />}
-          </ActionIcon>
-        </Tooltip>
-      )}
-    </CopyButton>
+        <Text weight={500}>= Total secs : {totalSecs.toString()}</Text>
+        
       </Group> 
+      
+      <Group position="apart" mt="md" mb="xs">
+        <Text weight={500}>= Total weeks : {(totalDays/7).toString() }</Text>
+        
+      </Group>
+
     </Card>
             
           
