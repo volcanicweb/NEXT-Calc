@@ -1,4 +1,3 @@
-
 import { FC, ReactHTMLElement  } from 'react';
 import React , { ChangeEvent,useState ,useRef } from 'react';
 import { useInputState } from '@mantine/hooks';
@@ -77,18 +76,18 @@ const Home: FC = () => {
   
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    // 👇️ prevent page refresh
+    // 👇 prevent page refresh
     event.preventDefault();
     if(value == "add"){
       console.log("adding");
       let sec = Number(sec1Value)+Number(sec2Value);
-      let carry = sec/60;
+      let carry =parseInt((sec/60).toString());
       setsec3Value(sec%60);
       let min =carry + Number(min1Value)+Number(min2Value);
-      carry = min/60;
+      carry = parseInt((min/60).toString());
       setmin3Value(min%60);
       let hour = carry + Number(hour1Value) + Number(hour2Value);
-      carry = hour/24;
+      carry = parseInt((hour/24).toString());
       sethour3Value(hour%24);
       let day = carry + Number(day1Value) + Number(day2Value);
       setday3Value(day);
@@ -492,8 +491,8 @@ const Home: FC = () => {
       </Card.Section>
 
       <Group position="apart" mt="md" mb="xs">
-        <Text weight={500}>Answer : {day3Value.toString() + " days " + hour3Value.toString() + " hours " + min3Value.toString() + " minutes " + sec3Value.toString() + " seconds"}</Text>
-        <CopyButton value={day3Value.toString() + " " + hour3Value.toString() + " " + min3Value.toString() + " " + sec3Value.toString()} timeout={2000}>
+        <Text weight={500}>days : {day3Value.toString()} hours : {hour3Value.toString()} mins : {min3Value.toString()} secs : {sec3Value.toString()}</Text>
+        <CopyButton value={day3Value.toString() + " " + hour3Value.toString() + " " + min3Value.toString() + " " + sec3Value  .toString()} timeout={2000}>
       {({ copied, copy }) => (
         <Tooltip label={copied ? 'Copied' : 'Copy'} withArrow position="right">
           <ActionIcon color={copied ? 'teal' : 'gray'} onClick={copy}>
@@ -506,7 +505,7 @@ const Home: FC = () => {
 {/* ================================== */}
 <Group position="apart" mt="md" mb="xs">
         <Text weight={500}>Total days : {totalDays.toString() }</Text>
-        <CopyButton value={day3Value.toString() + " " + hour3Value.toString() + " " + min3Value.toString() + " " + sec3Value.toString()} timeout={2000}>
+        <CopyButton value={totalDays.toString() } timeout={2000}>
       {({ copied, copy }) => (
         <Tooltip label={copied ? 'Copied' : 'Copy'} withArrow position="right">
           <ActionIcon color={copied ? 'teal' : 'gray'} onClick={copy}>
@@ -519,7 +518,7 @@ const Home: FC = () => {
       {/* ============================ */}
       <Group position="apart" mt="md" mb="xs">
         <Text weight={500}>Total hours : {totalHours.toString()}</Text>
-        <CopyButton value={day3Value.toString() + " " + hour3Value.toString() + " " + min3Value.toString() + " " + sec3Value.toString()} timeout={2000}>
+        <CopyButton value={totalHours.toString()} timeout={2000}>
       {({ copied, copy }) => (
         <Tooltip label={copied ? 'Copied' : 'Copy'} withArrow position="right">
           <ActionIcon color={copied ? 'teal' : 'gray'} onClick={copy}>
@@ -532,7 +531,7 @@ const Home: FC = () => {
 {/* ======================== */}
       <Group position="apart" mt="md" mb="xs">
         <Text weight={500}>Total mins : {totalMins.toString()}</Text>
-        <CopyButton value={day3Value.toString() + " " + hour3Value.toString() + " " + min3Value.toString() + " " + sec3Value.toString()} timeout={2000}>
+        <CopyButton value={totalMins.toString()} timeout={2000}>
       {({ copied, copy }) => (
         <Tooltip label={copied ? 'Copied' : 'Copy'} withArrow position="right">
           <ActionIcon color={copied ? 'teal' : 'gray'} onClick={copy}>
@@ -545,7 +544,7 @@ const Home: FC = () => {
       {/* ========================== */}
       <Group position="apart" mt="md" mb="xs">
         <Text weight={500}>Total secs : {totalSecs.toString()}</Text>
-        <CopyButton value={day3Value.toString() + " " + hour3Value.toString() + " " + min3Value.toString() + " " + sec3Value.toString()} timeout={2000}>
+        <CopyButton value={totalSecs.toString()} timeout={2000}>
       {({ copied, copy }) => (
         <Tooltip label={copied ? 'Copied' : 'Copy'} withArrow position="right">
           <ActionIcon color={copied ? 'teal' : 'gray'} onClick={copy}>
@@ -581,4 +580,4 @@ const Home: FC = () => {
   );
 };
 
-export default Home;
+export default Home;
