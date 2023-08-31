@@ -94,114 +94,29 @@ const Home: FC = () => {
     }
     else if(value == "sub"){
 
-      if(day1Value < day2Value)
+      let T1 =  parseFloat(day1Value.toString())*24*60*60 + parseFloat(hour1Value.toString())*60*60 + parseFloat(min1Value.toString())*60 + parseFloat(sec1Value.toString());
+      let T2 =  parseFloat(day2Value.toString())*24*60*60 + parseFloat(hour2Value.toString())*60*60 + parseFloat(min2Value.toString())*60 + parseFloat(sec2Value.toString());
+      let ansT;
+      if(T1 > T2)
       {
-          var temp = day1Value;
-          setday1Value(day2Value)
-          setday2Value(temp)
-
-          temp = hour1Value;
-          sethour1Value(hour2Value)
-          sethour2Value(temp)
-
-          temp = min1Value;
-          setmin1Value(min2Value)
-          setmin2Value(temp)
-
-          temp = sec1Value;
-          setsec1Value(sec2Value)
-          setsec2Value(temp)
+        ansT = T1 - T2;
+      }
+      else
+      {
+        ansT =T2 - T1;
       }
 
-      else if(day1Value >= day2Value && hour1Value < hour2Value)
-      {
-        var temp = day1Value;
-        setday1Value(day2Value)
-        setday2Value(temp)
+      setday3Value(Math.floor( ansT / 86400))
+      ansT = ansT % 86400
+      
+      sethour3Value(Math.floor(ansT / 3600))
+      ansT = ansT % 3600
+      setmin3Value(Math.floor(ansT/60))
+      ansT = ansT%60
+      setsec3Value(Math.floor(ansT));
 
-        temp = hour1Value;
-        sethour1Value(hour2Value)
-        sethour2Value(temp)
 
-        temp = min1Value;
-        setmin1Value(min2Value)
-        setmin2Value(temp)
-
-        temp = sec1Value;
-        setsec1Value(sec2Value)
-        setsec2Value(temp)
-      }
-      else if( day1Value >= day2Value && hour1Value >= hour2Value && min1Value < min2Value)
-      {
-        var temp = day1Value;
-        setday1Value(day2Value)
-        setday2Value(temp)
-
-        temp = hour1Value;
-        sethour1Value(hour2Value)
-        sethour2Value(temp)
-
-        temp = min1Value;
-        setmin1Value(min2Value)
-        setmin2Value(temp)
-
-        temp = sec1Value;
-        setsec1Value(sec2Value)
-        setsec2Value(temp)
-      }
-
-      else if( day1Value >= day2Value && hour1Value >= hour2Value && min1Value >= min2Value && sec1Value < sec2Value )
-      {
-        var temp = day1Value;
-        setday1Value(day2Value)
-        setday2Value(temp)
-
-        temp = hour1Value;
-        sethour1Value(hour2Value)
-        sethour2Value(temp)
-
-        temp = min1Value;
-        setmin1Value(min2Value)
-        setmin2Value(temp)
-
-        temp = sec1Value;
-        setsec1Value(sec2Value)
-        setsec2Value(temp)
-      }
-
-      let sec = Number(sec1Value)-Number(sec2Value);
-      let carry = 0
-      if(sec<0) 
-      {
-        sec = 60 + sec;
-        carry = 1;
-      }
-      setsec3Value(sec%60);
-      let min = Number(min1Value)-Number(min2Value)-carry;
-      carry = 0;
-      if(min<0) 
-      {
-        min = 60 + min;
-        carry = 1;
-      }
-      setmin3Value(min%60);
-      let hour =  Number(hour1Value) - Number(hour2Value)-carry;
-      carry = 0;
-      if(hour<0) 
-      {
-        hour = hour + 24;
-        carry = 1;
-      }
-      sethour3Value(hour%24);
-      let day = Number(day1Value) - Number(day2Value)-carry;
-      if(day<0) 
-      {
-        day = day*-1;
-        carry = 1;
-      }
-      setday3Value(day);
-
-    }
+    } 
   };
 
       totalDays = (parseFloat(day3Value.toString())*24*60*60 + parseFloat(hour3Value.toString())*60*60 + parseFloat(min3Value.toString())*60 + parseFloat(sec3Value.toString()))/86400;
